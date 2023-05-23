@@ -11,9 +11,9 @@
 
 #define AD0 0
 #if AD0
-#define MPU6050_ADDRESS 0x69 //device address when AD0 = 1
+#define MPU6050_ADDR 0x69 //device address when AD0 = 1
 #else
-#define MPU6050_ADDRESS 0x68 //device address when AD0 = 0
+#define MPU6050_ADDR 0x68 //device address when AD0 = 0
 #endif 
 
 #ifndef _MPU6050_H_
@@ -100,7 +100,7 @@ extern "C" {
 #define I2C_MST_DELAY_CTRL          0x67
 #define SIGNAL_PATH_RESET           0x68
 #define USER_CTRL                   0x6A
-#define PWr_MGMT_1                  0x6B
+#define PWR_MGMT_1                  0x6B
 #define PWR_MGMT_2                  0x6C
 #define FIFO_COUNTH                 0x72
 #define FIFO_COUNTL                 0x73
@@ -174,7 +174,7 @@ extern "C" {
 #define MPU6050_GCONFIG_FS_SEL_BIT      4
 #define MPU6050_GCONFIG_FS_SEL_LENGTH   2
 
-#define 
+// #define APP 
 typedef struct {
 
     int16_t Accel_X_RAW;
@@ -207,41 +207,17 @@ typedef struct {
 } Kalman_t;
 
 
-void MPU6050_Init(I2C_HandleTypeDef *hi2c);
+void MPU6050_Init(I2C_HandleTypeDef *I2Cx);
 bool MPU6050__TestConnection(void);
 
-void MPU6050_Read_Accel(I2C_HandleTypeDef *hi2c, MPU6050_t *DataStruct);
-void MPU6050_Read_Gyro(I2C_HandleTypeDef *hi2c, MPU6050_t *DataStruct);
-void MPU6050_Read_Temp(I2C_HandleTypeDef *hi2c, MPU6050_t *DataStruct);
-void MPU6050_Read_All(I2C_HandleTypeDef *hi2c, MPU6050_t *DataStruct);
+void MPU6050_Read_Accel(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct);
+void MPU6050_Read_Gyro(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct);
+void MPU6050_Read_Temp(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct);
+void MPU6050_Read_All(I2C_HandleTypeDef *I2Cx, MPU6050_t *DataStruct);
 
 double Kalman_getAngle(Kalman_t *Kalman, double newAngle, double newRate, double dt);
 
-/*
-uint8_t MPU6050_GetFullScaleGyroRange();
-void MPU6050_SetFullScaleGyroRange(uint8_t range);
 
-uint88_t MPU6050_GetFullScaleAccelRange();
-void MPU6050_SetFullScaleAccelRange(uint8_t range);
-
-// PWR_MGMT_1 register
-bool MPU6050_GetSleepModeStatus();
-void MPU6050_SetSleepModeStatus(FunctionalState NewState);
-void MPU6050_SetClockSource(uint8_t source);
-
-// WHO_AM_I register
-uint8_t MPU6050_GetDeviceID();
-
-void MPU6050_GetRawAccelGyro(s16* AccelGyro);
-
-void MPU6050_WriteBits(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t data);
-void MPU6050_WriteBit(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitNum, uint8_t data);
-void MPU6050_ReadBits(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitStart, uint8_t length, uint8_t *data);
-void MPU6050_ReadBit(uint8_t slaveAddr, uint8_t regAddr, uint8_t bitNum, uint8_t *data);
-
-void MPU6050_I2C_ByteWrite(uint8_t slaveAddr, uint8_t *pBuffer, uint8_t writeAddr);
-void MPU6050_I2C_BufferRead(uint8_t slaveAddr, uint8_t *pBuffer, uint8_t readAddr, uint16_t NumBytetoRead);
-*/
 
 #ifdef __cplusplus
 }
